@@ -1,0 +1,114 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(0, 0, 0);
+}
+header{
+    margin: 0px;
+    padding: 0px;
+}
+.cabeca{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 8dvh;
+    width: 97.6dvw;
+    background-color: rgb(0, 0, 0);
+    position: absolute;
+    border: 10px solid;
+    border-color: white;
+    color: wheat;
+    font-size: large;
+}
+.container{
+    display: grid;
+    position: absolute;
+    margin-top: 11dvh;
+    background-color: rgb(0, 0, 0);
+    text-align: center;
+    height: 100%;
+    width: 98dvw;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    "consulta1  mostra1"
+    "consulta2  mostra2"
+    "consulta3  mostra3";
+}
+.consulta1{
+    background-color: rgb(255, 255, 255);
+    margin-top: 4dvh;
+    grid-area: consulta1;
+    border: 5px solid;
+    border-color: black;
+    border-radius: 25px;
+}
+.consulta2{
+    background-color: rgb(255, 255, 255);
+    margin-top: 4dvh;
+    grid-area: consulta2;
+    border: 5px solid;
+    border-color: black;
+    border-radius: 25px;
+}
+.consulta3{
+    background-color: rgb(255, 255, 255);
+    margin-top: 4dvh;
+    grid-area: consulta3;
+    border: 5px solid;
+    border-color: black;
+    border-radius: 25px;
+}
+.mostra1{
+    grid-area: mostra1;
+    background-color: rgb(0, 0, 0);
+    margin-top: 4dvh;
+    border: 5px solid;
+    border-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    color: wheat;
+}
+.mostra2{
+    grid-area: mostra2;
+    background-color: rgb(0, 0, 0);
+    margin-top: 4dvh;
+    border: 5px solid;
+    border-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    color: wheat;
+}
+.mostra3{
+    grid-area: mostra3;
+    background-color: rgb(0, 0, 0);
+    margin-top: 4dvh;
+    border: 5px solid;
+    border-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    color: wheat;
+}
+.consulta1,.consulta2,.consulta3{
+    font-size: x-large;
+    min-height: 41dvh;
+}
+.form1, .form2, .form3{
+    background-color: rgb(0, 0, 0);
+    border: 5px solid;
+    border-color: rgb(255, 255, 255);
+    color: wheat;
+    height: 8dvh;
+    width: 25dvw;
+    border-radius: 25px;
+    font-size: large;
+    text-align: center;
+}
+.enviar1, .enviar2, .enviar3, .voltar1, .voltar2, .voltar3{
+    height: 8dvh;
+    width: 15dvw;
+    margin-bottom: 1dvh;
+    background-color: rgb(0, 0, 0);
+    color: wheat;
+    font-size: larger;
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 5px;
+    
+}

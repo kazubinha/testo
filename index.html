@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>API</title>
+</head>
+<body>
+    <header class="cabeca">
+        <h1>PESQUISA EM APIs</h1>
+    </header>
+    <main>
+    <div class="container">
+        <div class="consulta1">
+            <h2>Consultar Feriados</h2>
+            <label for="ano"></label>
+            <input type="number" id="ano" class="form1"><br>Escolha um ano válido<br>Exemplo:1999<br>
+            <input type="button" value="Enviar" id="enviar1" class="enviar1">
+            <input type="button" value="voltar" id="voltar1" class="voltar1">
+        </div>
+        <div id="mostra1" class="mostra1"></div>
+        <div class="consulta2">
+            <h2>Consultar CEP</h2>
+            <label for="cep"></label>
+            <input type="number" id="cep" class="form2"><br>Escolha um CEP válido<br>Exemplo:70070710<br>
+            <input type="button" value="Enviar" id="enviar2" class="enviar2">
+            <input type="button" value="voltar" id="voltar2" class="voltar2">
+        </div>
+        <div id="mostra2" class="mostra2"></div>
+        <div class="consulta3">
+            <h2>Consultar DDD</h2>
+            <label for="DDD"></label>
+            <input type="number" id="DDD" class="form3"><br>Escolha o DDD válido<br>Exemplo:53<br>
+            <input type="button" value="Enviar" id="enviar3" class="enviar3">
+            <input type="button" value="voltar" id="voltar3" class="voltar3">
+        </div>
+        <div id="mostra3" class="mostra3"></div>
+    </div>
+    </main>
+    <script>
+        async function consulta1(){
+        let ano = document.querySelector('#ano').value;
+        const url='https://brasilapi.com.br/api/feriados/v1/'+ano;
+        try{
+            let resposta=  await fetch(url);
+            let js = await resposta.json();
+            mostraDados1(js);
+        }catch(err) {
+            const painel = document.querySelector('#mostra1');
+            let texto= "<h1>Problema no acesso aos dados</h1>";
+            texto= texto + "O Ano Informado é inválido. Por favor digitar um ano válido."+"<br>"+"O Ano deve conter exatamente 4 caracteres e estar entre 1900 e 2199."
+            painel.innerHTML = texto; 
+        }
+    }
+    function mostraDados1(js){
+        const painel = document.querySelector('#mostra1');
+        let texto= "<h1>Dados Solicitados</h1>";
+        let resposta = "Data:"+js[0].date+"    |   "+"Nome:"+ js[0].name+"<br><br>"
+        let tamanho = js.length;
+        for (i=1;i<=tamanho-1;i++){
+            resposta += "Data:"+js[i].date+"    |   "+"Nome:"+js[i].name+"<br><br>"
+        }
+        texto=texto + resposta;
+    painel.innerHTML = texto;
+    }
+    document.querySelector('#enviar1').addEventListener('click',consulta1);
+    
+    async function consulta2(){
+        let cep = document.querySelector('#cep').value;
+        const url='https://brasilapi.com.br/api/cep/v1/'+cep;
+        try{
+            let resposta=  await fetch(url);
+            let js2 = await resposta.json();
+            mostraDados2(js2);
+        }catch(error) {
+            const painel = document.querySelector('#mostra2');
+            let texto= "<h1>Problema no acesso aos dados</h1>";
+            texto= texto + "O CEP digitado é inválido. Por favor digitar um CEP válido."+"<br>"+"O CEP deve conter exatamente 8 caracteres"
+            painel.innerHTML = texto; 
+        }
+    }
+    function mostraDados2(js2){
+        const painel = document.querySelector('#mostra2');
+        let texto= "<h1>Dados Solicitados</h1>";
+        texto=texto + "CEP:"+ js2.cep+"<br><br>";
+        texto=texto + "Estado:"+ js2.state+"<br><br>";
+        texto=texto + "Cidade:"+ js2.city+"<br><br>";
+        texto=texto + "Bairro:"+ js2.neighborhood+"<br><br>";
+        texto=texto + "Rua:"+ js2.street+"<br><br>";
+    painel.innerHTML = texto;
+    if (js2.cep==undefined){
+            const painel = document.querySelector('#mostra2');
+            let texto= "<h1>Problema no acesso aos dados</h1>";
+            texto= texto + "O CEP digitado é inválido. Por favor digitar um CEP válido."+"<br>"+"O CEP deve conter exatamente 8 caracteres"
+            painel.innerHTML = texto; 
+        }
+    }
+    document.querySelector('#enviar2').addEventListener('click',consulta2);
+
+    async function consulta3(){
+        let DDD = document.querySelector('#DDD').value;
+        const url='https://brasilapi.com.br/api/ddd/v1/'+ DDD;
+        try{
+            let resposta=  await fetch(url);
+            let js3 = await resposta.json();
+            mostraDados3(js3);
+        }catch(err) {
+            const painel = document.querySelector('#mostra3');
+            let texto= "<h1>Problema no acesso aos dados</h1>";
+            texto= texto +"O DDD digitado é inválido. Por favor digitar um DDD válido."+"<br>"+"O DDD deve conter exatamente 2 caracteres e ser válido."
+            painel.innerHTML = texto; 
+        }
+    }
+    function mostraDados3(js3){
+        const painel = document.querySelector('#mostra3');
+        let cidades="<br>"+js3.cities[0]+","+"<br>";
+        let tamanho = js3.cities.length
+        for (i=1;i<=tamanho-1;i++){
+            cidades += js3.cities[i]+","+"<br>";
+        }
+        let texto= "<h1>Dados Solicitados</h1>";
+        texto=texto + "Estado:"+ js3.state+"<br><br>";
+        texto=texto + "Cidades:"+ cidades;
+    painel.innerHTML = texto;
+    }
+    document.querySelector('#enviar3').addEventListener('click',consulta3);
+    //invisibilidade
+    document.querySelector("#voltar1").style.visibility="hidden";
+    document.querySelector("#voltar2").style.visibility="hidden";
+    document.querySelector("#voltar3").style.visibility="hidden";
+    function invisi1(){
+       document.querySelector("#voltar1").style.visibility="hidden";
+       document.querySelector("#mostra1").innerHTML="";
+       document.querySelector("#ano").value="";
+    }
+    function invisi2(){
+        document.querySelector("#voltar2").style.visibility="hidden";
+        document.querySelector("#mostra2").innerHTML="";
+        document.querySelector("#cep").value="";
+    }
+
+    function invisi3(){
+        document.querySelector("#voltar3").style.visibility="hidden";
+        document.querySelector("#mostra3").innerHTML="";
+        document.querySelector("#DDD").value="";
+    }
+    document.querySelector('#voltar1').addEventListener('click',invisi1);
+    document.querySelector('#voltar2').addEventListener('click',invisi2);
+    document.querySelector('#voltar3').addEventListener('click',invisi3);
+    //ver
+    function ver1(){
+       document.querySelector("#voltar1").style.visibility="visible";
+    }
+    function ver2(){
+        document.querySelector("#voltar2").style.visibility="visible";
+    }
+
+    function ver3(){
+        document.querySelector("#voltar3").style.visibility="visible";
+    }
+    document.querySelector('#enviar1').addEventListener('click',ver1);
+    document.querySelector('#enviar2').addEventListener('click',ver2);
+    document.querySelector('#enviar3').addEventListener('click',ver3);
+    </script>
+    
+</body>
+</html>
