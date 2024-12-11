@@ -112,3 +112,14 @@ header{
     margin-top: 5px;
     
 }
+
+@media (max-width: 680px){
+    .consulta1,.consulta2,.consulta3{
+        min-width: 35dvh;
+    }
+    .enviar1, .enviar2, .enviar3, .voltar1, .voltar2, .voltar3{
+        height: 6dvh;
+        width: 11dvw;
+        font-size: medium;
+    }
+}
